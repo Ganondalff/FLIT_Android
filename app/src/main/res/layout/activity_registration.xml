@@ -1,0 +1,77 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="edu.fontbonne.mobileapplab.flit.RegistrationActivity">
+
+    <TextView
+        android:id="@+id/registration_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/registration_name"
+        android:textSize="20sp"/>
+
+    <EditText
+        android:id="@+id/registration_name_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/registration_name"
+        android:layout_toEndOf="@+id/registration_name"
+        android:inputType="textPersonName"
+        android:hint="@string/registration_name_hint"/>
+
+    <TextView
+        android:id="@+id/registration_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/registration_name_box"
+        android:text="@string/registration_email"
+        android:textSize="20sp"/>
+
+    <EditText
+        android:id="@+id/registration_email_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/registration_email"
+        android:layout_toEndOf="@+id/registration_email"
+        android:layout_below="@+id/registration_name_box"
+        android:inputType="textEmailAddress"
+        android:hint="@string/registration_email_hint"/>
+
+    <TextView
+        android:id="@+id/registration_reason"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/registration_email_box"
+        android:text="@string/registration_reason"
+        android:textSize="20sp"/>
+
+    <Spinner
+        android:id="@+id/registration_reason_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/registration_reason"
+        android:layout_toEndOf="@id/registration_reason"
+        android:layout_below="@+id/registration_email_box"/>
+
+    <TextView
+        android:id="@+id/registration_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/registration_reason_spinner"
+        android:text="@string/registration_password"
+        android:textSize="20sp"/>
+
+    <EditText
+        android:id="@+id/registration_password_box"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/registration_password"
+        android:layout_toEndOf="@+id/registration_password"
+        android:layout_below="@+id/registration_reason_spinner"
+        android:inputType="textPassword"
+        android:hint="@string/registration_password_hint"/>
+
+</RelativeLayout>
