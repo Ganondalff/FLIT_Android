@@ -14,11 +14,13 @@
     <string name="registration_confirmpassword_hint">Confirm your password</string>
     <string name="registration_reason">Reason:</string>
     <string name="registration_reason_hint">Your reason for using this app</string>
+    <string name="registration_other">Other:</string>
+    <string name="registration_other_hint">Other reason</string>
     <string-array name="registration_reason_array">
-        <item>Reason 1</item>
-        <item>Reason 2</item>
-        <item>Reason 3</item>
-        <item>Reason 4</item>
+        <item>INT-105 Course</item>
+        <item>Aid Exhaustion</item>
+        <item>Academic Probation</item>
+        <item>Other</item>
     </string-array>
     <string name="registration_submit">Submit</string>
 </resources>
