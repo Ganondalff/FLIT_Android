@@ -2,7 +2,6 @@ package edu.fontbonne.mobileapplab.flit;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,7 +15,15 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button loginButton = (Button) findViewById(R.id.main_login_button);
         Button registerButton = (Button) findViewById(R.id.main_register_button);
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(loginIntent);
+            }
+        });
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
