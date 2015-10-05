@@ -24,6 +24,14 @@
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
+        <activity
+            android:name=".BudgetActivity"
+            android:label="@string/title_activity_budget"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.fontbonne.mobileapplab.flit.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
