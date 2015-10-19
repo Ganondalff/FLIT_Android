@@ -32,6 +32,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.fontbonne.mobileapplab.flit.MainActivity" />
         </activity>
+        <activity android:name=".SpendingActivity" >
+        </activity>
     </application>
 
 </manifest>

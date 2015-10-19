@@ -49,6 +49,7 @@
     <TableRow
         android:gravity="center">
         <Button
+            android:id="@+id/login_btn_submit"
             android:text="@string/login_submit"/>
     </TableRow>
 </TableLayout>
