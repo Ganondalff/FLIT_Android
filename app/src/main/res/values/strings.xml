@@ -26,11 +26,20 @@
     </string-array>
     <string name="registration_submit">Submit</string>
 
-
     <string name="login_email">Email:</string>
     <string name="login_email_hint">Your email</string>
     <string name="login_password">Password:</string>
     <string name="login_password_hint">Your password</string>
     <string name="login_submit">Login</string>
     <string name="title_activity_budget">BudgetActivity</string>
+
+    <string name="budget_main_home">Home &amp; Utilities</string>
+    <string name="budget_main_food">Food</string>
+    <string name="budget_main_health">Health/Medical</string>
+    <string name="budget_main_transport">Transportation</string>
+    <string name="budget_main_debts">Debts/Payments</string>
+    <string name="budget_main_entertainment">Entertainment</string>
+    <string name="budget_main_clothing">Clothing</string>
+    <string name="budget_main_savings">Savings</string>
+    <string name="budget_main_emergency">Emergency Funds</string>
 </resources>

@@ -9,47 +9,56 @@
     tools:context="edu.fontbonne.mobileapplab.flit.SpendingActivity">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Home &amp; Utilities"/>
+        android:text="Home &amp; Utilities"
+        android:textSize="32dp"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Food"/>
+        android:text="Food"
+        android:textSize="32dp"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Health Medical"/>
+        android:text="Health Medical"
+        android:textSize="32dp"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Transportation"/>
+        android:text="Transportation"
+        android:textSize="32dp"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Debts Payments"/>
+        android:text="Debts Payments"
+        android:textSize="32dp"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Entertainment"/>
+        android:text="Entertainment"
+        android:textSize="32dp"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Clothing"/>
+        android:text="Clothing"
+        android:textSize="32dp"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Savings"/>
+        android:text="Savings"
+        android:textSize="32dp"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Emergency Fund"/>
+        android:text="Emergency Fund"
+        android:textSize="32dp"/>
 </LinearLayout>

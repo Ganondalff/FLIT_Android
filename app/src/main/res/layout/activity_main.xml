@@ -34,5 +34,19 @@
             android:layout_toRightOf="@+id/main_login_button"
             android:text="Register"/>
 
+        <Button
+            android:id="@+id/main_budget_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/main_register_button"
+            android:text="Budget"/>
+
+        <Button
+            android:id="@+id/main_spending_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/main_login_button"
+            android:text="Spending"/>
+
     </RelativeLayout>
 </LinearLayout>
