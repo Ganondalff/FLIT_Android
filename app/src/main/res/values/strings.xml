@@ -42,4 +42,54 @@
     <string name="budget_main_clothing">Clothing</string>
     <string name="budget_main_savings">Savings</string>
     <string name="budget_main_emergency">Emergency Funds</string>
+
+    <string-array name="budget_home_array">
+        <item>Rent/Mortgage</item>
+        <item>Electricity</item>
+        <item>Water/Sewer/Gas</item>
+        <item>Phone/Cable/Internet</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="budget_food_array">
+        <item>Groceries</item>
+        <item>Eating Out</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="budget_health_array">
+        <item>Insurance</item>
+        <item>Bills</item>
+        <item>Fitness (Gym/Classes/Massage)</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="budget_transport_array">
+        <item>Car Payments</item>
+        <item>Gas/Oil</item>
+        <item>Repairs</item>
+        <item>Insurance</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="budget_debts_array">
+        <item>Credit Cards</item>
+        <item>Student Loans</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="budget_entertainment_array">
+        <item>Video Games/Movies</item>
+        <item>Computer Expenses</item>
+        <item>Hobbies</item>
+        <item>Vacations</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="budget_clothing_array">
+        <item>Clothing</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="budget_savings_array">
+        <item>Savings</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="budget_emergency_array">
+        <item>Emergency Fund</item>
+        <item>Other</item>
+    </string-array>
 </resources>

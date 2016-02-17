@@ -3,12 +3,15 @@ package edu.fontbonne.mobileapplab.flit;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 public class BudgetActivity extends Activity {
 
     ViewFlipper budgetFlipper;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,5 +92,12 @@ public class BudgetActivity extends Activity {
             budgetFlipper.setInAnimation(this, R.anim.slide_in_left);
             budgetFlipper.setDisplayedChild(0);
         }
+    }
+
+    private RelativeLayout submenuLayoutCreate()
+    {
+        RelativeLayout relativeLayout = new RelativeLayout(this);
+
+        return relativeLayout;
     }
 }
