@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v4.content.ContextCompat;
+import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -52,39 +53,39 @@ public class BudgetActivity extends Activity {
             switch (v.getId())
             {
                 case R.id.main_home:
-                    budgetFlipper.addView(submenuLayoutCreate(R.array.budget_home_array), 1);
+                    budgetFlipper.addView(submenuLayoutCreate(R.array.home_array), 1);
                     budgetFlipper.setDisplayedChild(1);
                     break;
                 case R.id.main_food:
-                    budgetFlipper.addView(submenuLayoutCreate(R.array.budget_food_array), 1);
+                    budgetFlipper.addView(submenuLayoutCreate(R.array.food_array), 1);
                     budgetFlipper.setDisplayedChild(1);
                     break;
                 case R.id.main_health:
-                    budgetFlipper.addView(submenuLayoutCreate(R.array.budget_health_array), 1);
+                    budgetFlipper.addView(submenuLayoutCreate(R.array.health_array), 1);
                     budgetFlipper.setDisplayedChild(1);
                     break;
                 case R.id.main_transport:
-                    budgetFlipper.addView(submenuLayoutCreate(R.array.budget_transport_array), 1);
+                    budgetFlipper.addView(submenuLayoutCreate(R.array.transport_array), 1);
                     budgetFlipper.setDisplayedChild(1);
                     break;
                 case R.id.main_debts:
-                    budgetFlipper.addView(submenuLayoutCreate(R.array.budget_debts_array), 1);
+                    budgetFlipper.addView(submenuLayoutCreate(R.array.debts_array), 1);
                     budgetFlipper.setDisplayedChild(1);
                     break;
                 case R.id.main_entertainment:
-                    budgetFlipper.addView(submenuLayoutCreate(R.array.budget_entertainment_array), 1);
+                    budgetFlipper.addView(submenuLayoutCreate(R.array.entertainment_array), 1);
                     budgetFlipper.setDisplayedChild(1);
                     break;
                 case R.id.main_clothing:
-                    budgetFlipper.addView(submenuLayoutCreate(R.array.budget_clothing_array), 1);
+                    budgetFlipper.addView(submenuLayoutCreate(R.array.clothing_array), 1);
                     budgetFlipper.setDisplayedChild(1);
                     break;
                 case R.id.main_savings:
-                    budgetFlipper.addView(submenuLayoutCreate(R.array.budget_savings_array), 1);
+                    budgetFlipper.addView(submenuLayoutCreate(R.array.savings_array), 1);
                     budgetFlipper.setDisplayedChild(1);
                     break;
                 case R.id.main_emergency:
-                    budgetFlipper.addView(submenuLayoutCreate(R.array.budget_emergency_array), 1);
+                    budgetFlipper.addView(submenuLayoutCreate(R.array.emergency_array), 1);
                     budgetFlipper.setDisplayedChild(1);
                     break;
             }
@@ -127,21 +128,21 @@ public class BudgetActivity extends Activity {
 
             budgetItemText[i].setText(itemList[i]);
             budgetItemText[i].setTextSize(20);
-            budgetItemText[i].setPadding(0,15,0,15);
+            budgetItemText[i].setPadding(0, 15, 0, 15);
 
             budgetItemInput[i].setHint("Enter Budget Here");
             budgetItemInput[i].setTextSize(20);
-            budgetItemInput[i].setPadding(10,15,10,15);
+            budgetItemInput[i].setPadding(10, 15, 10, 15);
+            budgetItemInput[i].setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
             RelativeLayout.LayoutParams paramsText = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             RelativeLayout.LayoutParams paramsInput = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
-
             paramsInput.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
             if(i>0)
             {
-                paramsText.addRule(RelativeLayout.BELOW, budgetItemText[i-1].getId());
-                paramsInput.addRule(RelativeLayout.BELOW, budgetItemText[i-1].getId());
+                paramsText.addRule(RelativeLayout.BELOW, budgetItemText[i - 1].getId());
+                paramsInput.addRule(RelativeLayout.BELOW, budgetItemText[i - 1].getId());
             }
 
             relativeLayout.addView(budgetItemText[i], paramsText);

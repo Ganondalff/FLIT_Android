@@ -33,63 +33,67 @@
     <string name="login_submit">Login</string>
     <string name="title_activity_budget">BudgetActivity</string>
 
-    <string name="budget_main_home">Home &amp; Utilities</string>
-    <string name="budget_main_food">Food</string>
-    <string name="budget_main_health">Health/Medical</string>
-    <string name="budget_main_transport">Transportation</string>
-    <string name="budget_main_debts">Debts/Payments</string>
-    <string name="budget_main_entertainment">Entertainment</string>
-    <string name="budget_main_clothing">Clothing</string>
-    <string name="budget_main_savings">Savings</string>
-    <string name="budget_main_emergency">Emergency Funds</string>
+    <string name="main_home">Home &amp; Utilities</string>
+    <string name="main_food">Food</string>
+    <string name="main_health">Health/Medical</string>
+    <string name="main_transport">Transportation</string>
+    <string name="main_debts">Debts/Payments</string>
+    <string name="main_entertainment">Entertainment</string>
+    <string name="main_clothing">Clothing</string>
+    <string name="main_savings">Savings</string>
+    <string name="main_emergency">Emergency Funds</string>
 
-    <string-array name="budget_home_array">
+    <string-array name="home_array">
         <item>Rent/Mortgage</item>
         <item>Electricity</item>
-        <item>Water/Sewer/Gas</item>
-        <item>Phone/Cable/Internet</item>
+        <item>Water/Sewer</item>
+        <item>Gas</item>
+        <item>Phone</item>
+        <item>Cable</item>
+        <item>Internet</item>
         <item>Other</item>
     </string-array>
-    <string-array name="budget_food_array">
+    <string-array name="food_array">
         <item>Groceries</item>
         <item>Eating Out</item>
         <item>Other</item>
     </string-array>
-    <string-array name="budget_health_array">
+    <string-array name="health_array">
         <item>Insurance</item>
         <item>Bills</item>
-        <item>Fitness (Gym/Classes/Massage)</item>
+        <item>Fitness</item>
         <item>Other</item>
     </string-array>
-    <string-array name="budget_transport_array">
+    <string-array name="transport_array">
         <item>Car Payments</item>
         <item>Gas/Oil</item>
         <item>Repairs</item>
         <item>Insurance</item>
         <item>Other</item>
     </string-array>
-    <string-array name="budget_debts_array">
+    <string-array name="debts_array">
         <item>Credit Cards</item>
         <item>Student Loans</item>
         <item>Other</item>
     </string-array>
-    <string-array name="budget_entertainment_array">
-        <item>Video Games/Movies</item>
-        <item>Computer Expenses</item>
+    <string-array name="entertainment_array">
+        <item>Video Games</item>
+        <item>Movies</item>
+        <item>Computer</item>
         <item>Hobbies</item>
         <item>Vacations</item>
         <item>Other</item>
     </string-array>
-    <string-array name="budget_clothing_array">
+    <string-array name="clothing_array">
         <item>Clothing</item>
         <item>Other</item>
     </string-array>
-    <string-array name="budget_savings_array">
+    <string-array name="savings_array">
         <item>Savings</item>
         <item>Other</item>
     </string-array>
-    <string-array name="budget_emergency_array">
-        <item>Emergency Fund</item>
+    <string-array name="emergency_array">
+        <item>Emergency Funds</item>
         <item>Other</item>
     </string-array>
 </resources>

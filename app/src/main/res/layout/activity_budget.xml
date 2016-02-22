@@ -9,8 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/header_edit"
-        android:layout_weight="1"
-        ></RelativeLayout>
+        android:layout_weight="1" />
     <ViewFlipper
         android:id="@+id/budget_flipper"
         android:layout_width="wrap_content"
@@ -30,63 +29,63 @@
                 android:id="@+id/main_home"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/budget_main_home"
+                android:text="@string/main_home"
                 android:textSize="32sp"/>
 
             <TextView
                 android:id="@+id/main_food"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/budget_main_food"
+                android:text="@string/main_food"
                 android:textSize="32sp"/>
 
             <TextView
                 android:id="@+id/main_health"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/budget_main_health"
+                android:text="@string/main_health"
                 android:textSize="32sp"/>
 
             <TextView
                 android:id="@+id/main_transport"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/budget_main_transport"
+                android:text="@string/main_transport"
                 android:textSize="32sp"/>
 
             <TextView
                 android:id="@+id/main_debts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/budget_main_debts"
+                android:text="@string/main_debts"
                 android:textSize="32sp"/>
 
             <TextView
                 android:id="@+id/main_entertainment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/budget_main_entertainment"
+                android:text="@string/main_entertainment"
                 android:textSize="32sp"/>
 
             <TextView
                 android:id="@+id/main_clothing"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/budget_main_clothing"
+                android:text="@string/main_clothing"
                 android:textSize="32sp"/>
 
             <TextView
                 android:id="@+id/main_savings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/budget_main_savings"
+                android:text="@string/main_savings"
                 android:textSize="32sp"/>
 
             <TextView
                 android:id="@+id/main_emergency"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/budget_main_emergency"
+                android:text="@string/main_emergency"
                 android:textSize="32sp"/>
         </LinearLayout>
     </ViewFlipper>
