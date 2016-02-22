@@ -1,8 +1,11 @@
 package edu.fontbonne.mobileapplab.flit;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
@@ -10,8 +13,6 @@ import android.widget.ViewFlipper;
 public class BudgetActivity extends Activity {
 
     ViewFlipper budgetFlipper;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,31 +52,40 @@ public class BudgetActivity extends Activity {
             switch (v.getId())
             {
                 case R.id.main_home:
+                    budgetFlipper.addView(submenuLayoutCreate(R.array.budget_home_array), 1);
                     budgetFlipper.setDisplayedChild(1);
                     break;
                 case R.id.main_food:
-                    budgetFlipper.setDisplayedChild(2);
+                    budgetFlipper.addView(submenuLayoutCreate(R.array.budget_food_array), 1);
+                    budgetFlipper.setDisplayedChild(1);
                     break;
                 case R.id.main_health:
-                    budgetFlipper.setDisplayedChild(3);
+                    budgetFlipper.addView(submenuLayoutCreate(R.array.budget_health_array), 1);
+                    budgetFlipper.setDisplayedChild(1);
                     break;
                 case R.id.main_transport:
-                    budgetFlipper.setDisplayedChild(4);
+                    budgetFlipper.addView(submenuLayoutCreate(R.array.budget_transport_array), 1);
+                    budgetFlipper.setDisplayedChild(1);
                     break;
                 case R.id.main_debts:
-                    budgetFlipper.setDisplayedChild(5);
+                    budgetFlipper.addView(submenuLayoutCreate(R.array.budget_debts_array), 1);
+                    budgetFlipper.setDisplayedChild(1);
                     break;
                 case R.id.main_entertainment:
-                    budgetFlipper.setDisplayedChild(6);
+                    budgetFlipper.addView(submenuLayoutCreate(R.array.budget_entertainment_array), 1);
+                    budgetFlipper.setDisplayedChild(1);
                     break;
                 case R.id.main_clothing:
-                    budgetFlipper.setDisplayedChild(7);
+                    budgetFlipper.addView(submenuLayoutCreate(R.array.budget_clothing_array), 1);
+                    budgetFlipper.setDisplayedChild(1);
                     break;
                 case R.id.main_savings:
-                    budgetFlipper.setDisplayedChild(8);
+                    budgetFlipper.addView(submenuLayoutCreate(R.array.budget_savings_array), 1);
+                    budgetFlipper.setDisplayedChild(1);
                     break;
                 case R.id.main_emergency:
-                    budgetFlipper.setDisplayedChild(9);
+                    budgetFlipper.addView(submenuLayoutCreate(R.array.budget_emergency_array), 1);
+                    budgetFlipper.setDisplayedChild(1);
                     break;
             }
         }
@@ -94,9 +104,49 @@ public class BudgetActivity extends Activity {
         }
     }
 
-    private RelativeLayout submenuLayoutCreate()
+    private RelativeLayout submenuLayoutCreate(int strArray)
     {
+        Resources res = getResources();
+        String[] itemList = res.getStringArray(strArray);
+
         RelativeLayout relativeLayout = new RelativeLayout(this);
+
+        relativeLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.background_edit));
+        relativeLayout.setPadding(res.getDimensionPixelSize(R.dimen.activity_horizontal_margin), res.getDimensionPixelSize(R.dimen.activity_vertical_margin), res.getDimensionPixelSize(R.dimen.activity_horizontal_margin), res.getDimensionPixelSize(R.dimen.activity_vertical_margin));
+
+        TextView[] budgetItemText = new TextView[itemList.length];
+        EditText[] budgetItemInput = new EditText[itemList.length];
+
+        for(int i = 0; i < itemList.length; i++)
+        {
+            budgetItemText[i] = new TextView(this);
+            budgetItemInput[i] = new EditText(this);
+
+            budgetItemText[i].setId(View.generateViewId());
+            budgetItemInput[i].setId(View.generateViewId());
+
+            budgetItemText[i].setText(itemList[i]);
+            budgetItemText[i].setTextSize(20);
+            budgetItemText[i].setPadding(0,15,0,15);
+
+            budgetItemInput[i].setHint("Enter Budget Here");
+            budgetItemInput[i].setTextSize(20);
+            budgetItemInput[i].setPadding(10,15,10,15);
+
+            RelativeLayout.LayoutParams paramsText = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            RelativeLayout.LayoutParams paramsInput = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+
+            paramsInput.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            if(i>0)
+            {
+                paramsText.addRule(RelativeLayout.BELOW, budgetItemText[i-1].getId());
+                paramsInput.addRule(RelativeLayout.BELOW, budgetItemText[i-1].getId());
+            }
+
+            relativeLayout.addView(budgetItemText[i], paramsText);
+            relativeLayout.addView(budgetItemInput[i], paramsInput);
+        }
 
         return relativeLayout;
     }
