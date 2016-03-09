@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
@@ -104,48 +105,81 @@ public class SpendingActivity extends Activity {
         }
     }
 
-    private RelativeLayout submenuLayoutCreate(int strArray)
+    private LinearLayout submenuLayoutCreate(int strArray)
     {
         Resources res = getResources();
         String[] itemList = res.getStringArray(strArray);
 
-        RelativeLayout relativeLayout = new RelativeLayout(this);
+        LinearLayout linearLayout = new LinearLayout(this);
 
-        relativeLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.background_edit));
-        relativeLayout.setPadding(res.getDimensionPixelSize(R.dimen.activity_horizontal_margin), res.getDimensionPixelSize(R.dimen.activity_vertical_margin), res.getDimensionPixelSize(R.dimen.activity_horizontal_margin), res.getDimensionPixelSize(R.dimen.activity_vertical_margin));
-
-        TextView[] spendingItemText = new TextView[itemList.length];
-        EditText[] spendingItemInput = new EditText[itemList.length];
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        //linearLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.background_edit));
+        linearLayout.setPadding(res.getDimensionPixelSize(R.dimen.activity_horizontal_margin), res.getDimensionPixelSize(R.dimen.activity_vertical_margin), res.getDimensionPixelSize(R.dimen.activity_horizontal_margin), res.getDimensionPixelSize(R.dimen.activity_vertical_margin));
 
         for(int i = 0; i < itemList.length; i++)
+            linearLayout.addView(subMenuRowCreate(itemList[i], linearLayout));
+
+        return linearLayout;
+    }
+
+    private RelativeLayout subMenuRowCreate(String itemString, final LinearLayout parent)
+    {
+        RelativeLayout relativeLayout = new RelativeLayout(this);
+
+        TextView spendingItemText = new TextView(this);
+        EditText spendingItemInputLocation = new EditText(this);
+        EditText spendingItemInputAmount = new EditText(this);
+
+        spendingItemText.setId(View.generateViewId());
+        spendingItemInputLocation.setId(View.generateViewId());
+        spendingItemInputAmount.setId(View.generateViewId());
+
+        spendingItemText.setText(itemString);
+        spendingItemText.setTextSize(20);
+        spendingItemText.setPadding(0, 15, 0, 15);
+
+        spendingItemInputLocation.setHint("Location");
+        spendingItemInputLocation.setTextSize(20);
+        spendingItemInputLocation.setPadding(10, 15, 10, 15);
+
+        spendingItemInputAmount.setHint("Amount");
+        spendingItemInputAmount.setTextSize(20);
+        spendingItemInputAmount.setPadding(10, 15, 10, 15);
+
+        RelativeLayout.LayoutParams paramsText = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        RelativeLayout.LayoutParams paramsInputLocation = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        RelativeLayout.LayoutParams paramsInputAmount = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+        paramsInputLocation.addRule(RelativeLayout.LEFT_OF, spendingItemInputAmount.getId());
+        paramsInputAmount.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+
+        if(itemString.equals("Other"))
         {
-            spendingItemText[i] = new TextView(this);
-            spendingItemInput[i] = new EditText(this);
+            View.OnClickListener plusListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    parent.addView(subMenuRowCreate("Other", parent));
+                }
+            };
 
-            spendingItemText[i].setId(View.generateViewId());
-            spendingItemInput[i].setId(View.generateViewId());
+            TextView plusButton = new TextView(this);
+            plusButton.setId(View.generateViewId());
+            plusButton.setText("+");
+            plusButton.setTextSize(20);
+            plusButton.setPadding(0, 15, 0, 15);
+            plusButton.setOnClickListener(plusListener);
 
-            spendingItemText[i].setText(itemList[i]);
-            spendingItemText[i].setTextSize(20);
-            spendingItemText[i].setPadding(0, 15, 0, 15);
+            RelativeLayout.LayoutParams paramsPlus = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            paramsPlus.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            paramsInputAmount.removeRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            paramsInputAmount.addRule(RelativeLayout.LEFT_OF, plusButton.getId());
 
-            spendingItemInput[i].setHint("Enter Amount Here");
-            spendingItemInput[i].setTextSize(20);
-            spendingItemInput[i].setPadding(10, 15, 10, 15);
-
-            RelativeLayout.LayoutParams paramsText = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            RelativeLayout.LayoutParams paramsInput = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-
-            paramsInput.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-            if(i>0)
-            {
-                paramsText.addRule(RelativeLayout.BELOW, spendingItemText[i - 1].getId());
-                paramsInput.addRule(RelativeLayout.BELOW, spendingItemText[i - 1].getId());
-            }
-
-            relativeLayout.addView(spendingItemText[i], paramsText);
-            relativeLayout.addView(spendingItemInput[i], paramsInput);
+            relativeLayout.addView(plusButton, paramsPlus);
         }
+
+        relativeLayout.addView(spendingItemText, paramsText);
+        relativeLayout.addView(spendingItemInputLocation, paramsInputLocation);
+        relativeLayout.addView(spendingItemInputAmount, paramsInputAmount);
 
         return relativeLayout;
     }
