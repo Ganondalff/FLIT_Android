@@ -4,7 +4,11 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v4.content.ContextCompat;
+import android.text.Editable;
+import android.text.InputFilter;
 import android.text.InputType;
+import android.text.Spanned;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -134,6 +138,23 @@ public class BudgetActivity extends Activity {
             budgetItemInput[i].setTextSize(20);
             budgetItemInput[i].setPadding(10, 15, 10, 15);
             budgetItemInput[i].setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+            budgetItemInput[i].setFilters(new InputFilter[]{
+                    new InputFilter() {
+                        @Override
+                        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                            if (end > start){
+                                String destinationString = dest.toString();
+                                String result = destinationString.substring(0, dstart) + source.subSequence(start, end) + destinationString.substring(dend);
+
+                                if (result.matches("^(\\d+)(\\.\\d{2})?$"))
+                                    return null;
+                                else
+                                    return "";
+                            }
+                            return null;
+                        }
+                    }
+            });
 
             RelativeLayout.LayoutParams paramsText = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             RelativeLayout.LayoutParams paramsInput = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);

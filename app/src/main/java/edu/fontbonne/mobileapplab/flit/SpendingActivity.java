@@ -4,9 +4,13 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.text.InputType;
 import android.view.View;
+import android.widget.AbsListView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
@@ -105,7 +109,21 @@ public class SpendingActivity extends Activity {
         }
     }
 
-    private LinearLayout submenuLayoutCreate(int strArray)
+    private ListView submenuLayoutCreate(int strArray)
+    {
+        ListView listView = new ListView(this);
+        Resources res = getResources();
+        String[] itemList = res.getStringArray(strArray);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.submenu_row, R.id.rowTitle, itemList);
+
+        ListView.LayoutParams paramsList = new ListView.LayoutParams(ListView.LayoutParams.MATCH_PARENT, ListView.LayoutParams.MATCH_PARENT);
+        listView.setLayoutParams(paramsList);
+        listView.setAdapter(adapter);
+
+        return listView;
+    }
+
+    /*private LinearLayout submenuLayoutCreate(int strArray)
     {
         Resources res = getResources();
         String[] itemList = res.getStringArray(strArray);
@@ -113,16 +131,15 @@ public class SpendingActivity extends Activity {
         LinearLayout linearLayout = new LinearLayout(this);
 
         linearLayout.setOrientation(LinearLayout.VERTICAL);
-        //linearLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.background_edit));
         linearLayout.setPadding(res.getDimensionPixelSize(R.dimen.activity_horizontal_margin), res.getDimensionPixelSize(R.dimen.activity_vertical_margin), res.getDimensionPixelSize(R.dimen.activity_horizontal_margin), res.getDimensionPixelSize(R.dimen.activity_vertical_margin));
 
         for(int i = 0; i < itemList.length; i++)
             linearLayout.addView(subMenuRowCreate(itemList[i], linearLayout));
 
         return linearLayout;
-    }
+    }*/
 
-    private RelativeLayout subMenuRowCreate(String itemString, final LinearLayout parent)
+    /*private RelativeLayout subMenuRowCreate(String itemString, final LinearLayout parent)
     {
         RelativeLayout relativeLayout = new RelativeLayout(this);
 
@@ -145,6 +162,7 @@ public class SpendingActivity extends Activity {
         spendingItemInputAmount.setHint("Amount");
         spendingItemInputAmount.setTextSize(20);
         spendingItemInputAmount.setPadding(10, 15, 10, 15);
+        spendingItemInputAmount.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
         RelativeLayout.LayoutParams paramsText = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         RelativeLayout.LayoutParams paramsInputLocation = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -166,7 +184,7 @@ public class SpendingActivity extends Activity {
             plusButton.setId(View.generateViewId());
             plusButton.setText("+");
             plusButton.setTextSize(20);
-            plusButton.setPadding(0, 15, 0, 15);
+            plusButton.setPadding(10, 15, 10, 15);
             plusButton.setOnClickListener(plusListener);
 
             RelativeLayout.LayoutParams paramsPlus = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -182,5 +200,5 @@ public class SpendingActivity extends Activity {
         relativeLayout.addView(spendingItemInputAmount, paramsInputAmount);
 
         return relativeLayout;
-    }
+    }*/
 }
