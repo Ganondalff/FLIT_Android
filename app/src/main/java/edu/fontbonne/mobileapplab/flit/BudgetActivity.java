@@ -5,9 +5,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
-import android.text.InputFilter;
 import android.text.InputType;
-import android.text.Spanned;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
@@ -112,7 +110,7 @@ public class BudgetActivity extends Activity {
     private RelativeLayout submenuLayoutCreate(int strArray)
     {
         Resources res = getResources();
-        String[] itemList = res.getStringArray(strArray);
+        String[] itemList = getResources().getStringArray(strArray);
 
         RelativeLayout relativeLayout = new RelativeLayout(this);
 
@@ -120,7 +118,7 @@ public class BudgetActivity extends Activity {
         relativeLayout.setPadding(res.getDimensionPixelSize(R.dimen.activity_horizontal_margin), res.getDimensionPixelSize(R.dimen.activity_vertical_margin), res.getDimensionPixelSize(R.dimen.activity_horizontal_margin), res.getDimensionPixelSize(R.dimen.activity_vertical_margin));
 
         TextView[] budgetItemText = new TextView[itemList.length];
-        EditText[] budgetItemInput = new EditText[itemList.length];
+        final EditText[] budgetItemInput = new EditText[itemList.length];
 
         for(int i = 0; i < itemList.length; i++)
         {
@@ -138,22 +136,26 @@ public class BudgetActivity extends Activity {
             budgetItemInput[i].setTextSize(20);
             budgetItemInput[i].setPadding(10, 15, 10, 15);
             budgetItemInput[i].setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-            budgetItemInput[i].setFilters(new InputFilter[]{
-                    new InputFilter() {
-                        @Override
-                        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-                            if (end > start){
-                                String destinationString = dest.toString();
-                                String result = destinationString.substring(0, dstart) + source.subSequence(start, end) + destinationString.substring(dend);
 
-                                if (result.matches("^(\\d+)(\\.\\d{2})?$"))
-                                    return null;
-                                else
-                                    return "";
-                            }
-                            return null;
-                        }
-                    }
+            final int index = i;
+            budgetItemInput[i].addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (s.toString().matches("^(\\d+)(\\.\\d{2})?$"))
+                        budgetItemInput[index].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), android.R.color.holo_green_light));
+                    else
+                        budgetItemInput[index].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), android.R.color.holo_red_dark));
+                }
             });
 
             RelativeLayout.LayoutParams paramsText = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);

@@ -1,131 +1,143 @@
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="edu.fontbonne.mobileapplab.flit.RegistrationActivity">
-<TableLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:stretchColumns="1">
-
-    <TableRow
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp">
-        <TextView
-            android:id="@+id/registration_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/registration_name"
-            android:textSize="20sp"/>
-
-        <EditText
-            android:id="@+id/registration_name_box"
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/header_edit"
+        android:layout_weight="1" />
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_edit"
+        android:layout_weight="1">
+        <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:hint="@string/registration_name_hint"/>
-    </TableRow>
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:stretchColumns="1">
 
-    <TableRow
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp">
-        <TextView
-            android:id="@+id/registration_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/registration_email"
-            android:textSize="20sp"/>
+            <TableRow
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp">
+                <TextView
+                    android:id="@+id/registration_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/registration_name"
+                    android:textSize="20sp"/>
 
-        <EditText
-            android:id="@+id/registration_email_box"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:hint="@string/registration_email_hint"/>
-    </TableRow>
+                <EditText
+                    android:id="@+id/registration_name_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:hint="@string/registration_name_hint"/>
+            </TableRow>
 
-    <TableRow
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp">
-        <TextView
-            android:id="@+id/registration_reason"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/registration_reason"
-            android:textSize="20sp"/>
+            <TableRow
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp">
+                <TextView
+                    android:id="@+id/registration_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/registration_email"
+                    android:textSize="20sp"/>
 
-        <Spinner
-            android:id="@+id/registration_reason_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </TableRow>
+                <EditText
+                    android:id="@+id/registration_email_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:hint="@string/registration_email_hint"/>
+            </TableRow>
 
-    <TableRow
-        android:id="@+id/registration_other_row"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        android:visibility="gone">
-        <TextView
-            android:id="@+id/registration_other"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/registration_other"
-            android:textSize="20sp"/>
+            <TableRow
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp">
+                <TextView
+                    android:id="@+id/registration_reason"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/registration_reason"
+                    android:textSize="20sp"/>
 
-        <EditText
-            android:id="@+id/registration_other_box"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:hint="@string/registration_other_hint"/>
-    </TableRow>
+                <Spinner
+                    android:id="@+id/registration_reason_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </TableRow>
 
-    <TableRow
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp">
-        <TextView
-            android:id="@+id/registration_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/registration_password"
-            android:textSize="20sp"/>
+            <TableRow
+                android:id="@+id/registration_other_row"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:visibility="gone">
+                <TextView
+                    android:id="@+id/registration_other"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/registration_other"
+                    android:textSize="20sp"/>
 
-        <EditText
-            android:id="@+id/registration_password_box"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="@string/registration_password_hint" />
-    </TableRow>
+                <EditText
+                    android:id="@+id/registration_other_box"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:hint="@string/registration_other_hint"/>
+            </TableRow>
 
-    <TableRow
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp">
-        <TextView
-            android:id="@+id/registration_confirm_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/registration_confirmpassword"
-            android:textSize="20sp"/>
+            <TableRow
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp">
+                <TextView
+                    android:id="@+id/registration_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/registration_password"
+                    android:textSize="20sp"/>
 
-        <EditText
-            android:id="@+id/registration_confirm_password_box"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="@string/registration_confirmpassword_hint" />
-    </TableRow>
+                <EditText
+                    android:id="@+id/registration_password_box"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:hint="@string/registration_password_hint" />
+            </TableRow>
 
-    <TableRow
-        android:gravity="center">
-        <Button
-            android:text="@string/registration_submit"/>
-    </TableRow>
+            <TableRow
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp">
+                <TextView
+                    android:id="@+id/registration_confirm_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/registration_confirmpassword"
+                    android:textSize="20sp"/>
 
-</TableLayout>
-</ScrollView>
+                <EditText
+                    android:id="@+id/registration_confirm_password_box"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:hint="@string/registration_confirmpassword_hint" />
+            </TableRow>
+
+            <TableRow
+                android:gravity="center">
+                <Button
+                    android:text="@string/registration_submit"/>
+            </TableRow>
+
+        </TableLayout>
+    </ScrollView>
+</LinearLayout>

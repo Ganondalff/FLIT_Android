@@ -1,55 +1,67 @@
-<TableLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:stretchColumns="1"
+    android:orientation="vertical"
     tools:context="edu.fontbonne.mobileapplab.flit.LoginActivity">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/header_edit"
+        android:layout_weight="1" />
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:background="@drawable/background_edit"
+        android:stretchColumns="1"
+        android:layout_weight="1">
 
-    <TableRow
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp">
-        <TextView
-            android:id="@+id/login_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/login_email"
-            android:textSize="20sp"/>
+        <TableRow
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp">
+            <TextView
+                android:id="@+id/login_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_email"
+                android:textSize="20sp"/>
 
-        <EditText
-            android:id="@+id/login_email_box"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:hint="@string/login_email_hint"/>
-    </TableRow>
+            <EditText
+                android:id="@+id/login_email_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:hint="@string/login_email_hint"/>
+        </TableRow>
 
-    <TableRow
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp">
-        <TextView
-            android:id="@+id/login_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/login_password"
-            android:textSize="20sp"/>
+        <TableRow
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp">
+            <TextView
+                android:id="@+id/login_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_password"
+                android:textSize="20sp"/>
 
-        <EditText
-            android:id="@+id/login_password_box"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="@string/login_password_hint" />
-    </TableRow>
+            <EditText
+                android:id="@+id/login_password_box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:hint="@string/login_password_hint" />
+        </TableRow>
 
-    <TableRow
-        android:gravity="center">
-        <Button
-            android:id="@+id/login_btn_submit"
-            android:text="@string/login_submit"/>
-    </TableRow>
-</TableLayout>
+        <TableRow
+            android:gravity="center">
+            <Button
+                android:id="@+id/login_btn_submit"
+                android:text="@string/login_submit"/>
+        </TableRow>
+    </TableLayout>
+</LinearLayout>
