@@ -2,10 +2,13 @@ package edu.fontbonne.mobileapplab.flit;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
@@ -53,7 +56,6 @@ public class SpendingActivity extends Activity {
                 case R.id.main_home:
                     spendingFlipper.addView(submenuLayoutCreate(R.array.home_array), 1);
                     spendingFlipper.setDisplayedChild(1);
-                    addPlus();
                     break;
                 case R.id.main_food:
                     spendingFlipper.addView(submenuLayoutCreate(R.array.food_array), 1);
@@ -94,13 +96,21 @@ public class SpendingActivity extends Activity {
     @Override
     public void onBackPressed()
     {
-        if (spendingFlipper.getDisplayedChild() == 0)
-            super.onBackPressed();
-        else
+        switch (spendingFlipper.getDisplayedChild())
         {
-            spendingFlipper.setOutAnimation(this, R.anim.slide_out_right);
-            spendingFlipper.setInAnimation(this, R.anim.slide_in_left);
-            spendingFlipper.setDisplayedChild(0);
+            case 0:
+                super.onBackPressed();
+                break;
+            case 1:
+                spendingFlipper.setOutAnimation(this, R.anim.slide_out_right);
+                spendingFlipper.setInAnimation(this, R.anim.slide_in_left);
+                spendingFlipper.setDisplayedChild(0);
+                break;
+            case 2:
+                spendingFlipper.setOutAnimation(this, R.anim.slide_out_right);
+                spendingFlipper.setInAnimation(this, R.anim.slide_in_left);
+                spendingFlipper.setDisplayedChild(1);
+                break;
         }
     }
 
@@ -108,37 +118,67 @@ public class SpendingActivity extends Activity {
     {
         ListView listView = new ListView(this);
         String[] itemList = getResources().getStringArray(strArray);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.submenu_row, R.id.rowTitle, itemList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.submenu_spending_row, R.id.rowTitle, itemList);
 
         ListView.LayoutParams paramsList = new ListView.LayoutParams(ListView.LayoutParams.MATCH_PARENT, ListView.LayoutParams.MATCH_PARENT);
         listView.setLayoutParams(paramsList);
         listView.setAdapter(adapter);
 
+        listView.setOnItemClickListener(listItemButtonListener);
+
         return listView;
     }
 
-    // not working
-    private void addPlus()
-    {
-        ListView list = (ListView)spendingFlipper.getChildAt(1);
-        for(int i = 0; i < list.getChildCount(); i++)
-        {
-            if(((TextView)((RelativeLayout)list.getChildAt(i)).getChildAt(1)).getText().equals("Other"))
-            {
-                View.OnClickListener plusListener = new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        View newRow = getLayoutInflater().inflate(R.layout.submenu_row, null);
-                        ((ListView)spendingFlipper.getChildAt(1)).addView(newRow);
-                        ((TextView)((RelativeLayout)newRow).getChildAt(1)).setText("Other");
-                        addPlus();
-                    }
-                };
+    private AdapterView.OnItemClickListener listItemButtonListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            spendingFlipper.setOutAnimation(getApplicationContext(), R.anim.slide_out_left);
+            spendingFlipper.setInAnimation(getApplicationContext(), R.anim.slide_in_right);
 
-                RelativeLayout rowView = (RelativeLayout) list.getChildAt(i);
-                rowView.getChildAt(3).setOnClickListener(plusListener);
-                rowView.getChildAt(3).setVisibility(View.VISIBLE);
-            }
+            spendingFlipper.addView(submenu2LayoutCreate(((TextView)view.findViewById(R.id.rowTitle)).getText().toString()), 2);
+            spendingFlipper.setDisplayedChild(2);
         }
+    };
+
+    private LinearLayout submenu2LayoutCreate(String name)
+    {
+        String[] projection = {
+                FeedEntry._ID,
+                FeedEntry.NAME,
+                FeedEntry.DATE
+        };
+
+        String sortOrder = FeedEntry.DATE + " DESC";
+
+        Cursor cursor = db.query(
+                FeedEntry.TABLE_NAME,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                sortOrder
+        );
+
+        LinearLayout linearLayout = new LinearLayout(this);
+        String[] locList = getResources().getStringArray(R.id.str);
+        TextView textView = new TextView(this);
+        ListView listView = new ListView(this);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.submenu2_spending_row, R.id.rowLocation);
+        FloatingActionButton floatingActionButton = new FloatingActionButton(this);
+
+        ViewGroup.LayoutParams paramsText = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        textView.setText(name);
+        textView.setLayoutParams(paramsText);
+
+        ListView.LayoutParams paramsList = new ListView.LayoutParams(ListView.LayoutParams.MATCH_PARENT, ListView.LayoutParams.MATCH_PARENT);
+        listView.setLayoutParams(paramsList);
+        listView.setAdapter(adapter);
+
+        linearLayout.addView(textView);
+        linearLayout.addView(listView);
+        linearLayout.addView(floatingActionButton);
+
+        return linearLayout;
     }
 }

@@ -1,15 +1,10 @@
 package edu.fontbonne.mobileapplab.flit;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.app.Activity;
-import android.support.v4.content.ContextCompat;
-import android.text.Editable;
-import android.text.InputType;
-import android.text.TextWatcher;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.RelativeLayout;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
@@ -97,7 +92,7 @@ public class BudgetActivity extends Activity {
     @Override
     public void onBackPressed()
     {
-        if (budgetFlipper.getDisplayedChild() == 0)
+        if(budgetFlipper.getDisplayedChild() == 0)
             super.onBackPressed();
         else
         {
@@ -107,71 +102,16 @@ public class BudgetActivity extends Activity {
         }
     }
 
-    private RelativeLayout submenuLayoutCreate(int strArray)
+    private ListView submenuLayoutCreate(int strArray)
     {
-        Resources res = getResources();
+        ListView listView = new ListView(this);
         String[] itemList = getResources().getStringArray(strArray);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.submenu_budget_row, R.id.rowTitle, itemList);
 
-        RelativeLayout relativeLayout = new RelativeLayout(this);
+        ListView.LayoutParams paramsList = new ListView.LayoutParams(ListView.LayoutParams.MATCH_PARENT, ListView.LayoutParams.MATCH_PARENT);
+        listView.setLayoutParams(paramsList);
+        listView.setAdapter(adapter);
 
-        relativeLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.background_edit));
-        relativeLayout.setPadding(res.getDimensionPixelSize(R.dimen.activity_horizontal_margin), res.getDimensionPixelSize(R.dimen.activity_vertical_margin), res.getDimensionPixelSize(R.dimen.activity_horizontal_margin), res.getDimensionPixelSize(R.dimen.activity_vertical_margin));
-
-        TextView[] budgetItemText = new TextView[itemList.length];
-        final EditText[] budgetItemInput = new EditText[itemList.length];
-
-        for(int i = 0; i < itemList.length; i++)
-        {
-            budgetItemText[i] = new TextView(this);
-            budgetItemInput[i] = new EditText(this);
-
-            budgetItemText[i].setId(View.generateViewId());
-            budgetItemInput[i].setId(View.generateViewId());
-
-            budgetItemText[i].setText(itemList[i]);
-            budgetItemText[i].setTextSize(20);
-            budgetItemText[i].setPadding(0, 15, 0, 15);
-
-            budgetItemInput[i].setHint("Enter Budget Here");
-            budgetItemInput[i].setTextSize(20);
-            budgetItemInput[i].setPadding(10, 15, 10, 15);
-            budgetItemInput[i].setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-
-            final int index = i;
-            budgetItemInput[i].addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-                    if (s.toString().matches("^(\\d+)(\\.\\d{2})?$"))
-                        budgetItemInput[index].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), android.R.color.holo_green_light));
-                    else
-                        budgetItemInput[index].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), android.R.color.holo_red_dark));
-                }
-            });
-
-            RelativeLayout.LayoutParams paramsText = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            RelativeLayout.LayoutParams paramsInput = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-
-            paramsInput.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-            if(i>0)
-            {
-                paramsText.addRule(RelativeLayout.BELOW, budgetItemText[i - 1].getId());
-                paramsInput.addRule(RelativeLayout.BELOW, budgetItemText[i - 1].getId());
-            }
-
-            relativeLayout.addView(budgetItemText[i], paramsText);
-            relativeLayout.addView(budgetItemInput[i], paramsInput);
-        }
-
-        return relativeLayout;
+        return listView;
     }
 }

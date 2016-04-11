@@ -15,8 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@drawable/background_edit"
-        android:fadeScrollbars="false"
-        android:fillViewport="true">
+        android:fadeScrollbars="false">
         <ViewFlipper
             android:id="@+id/spending_flipper"
             android:layout_width="wrap_content"
