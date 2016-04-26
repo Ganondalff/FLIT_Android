@@ -1,6 +1,8 @@
 package edu.fontbonne.mobileapplab.flit;
 
 import android.app.Activity;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
@@ -142,16 +144,20 @@ public class SpendingActivity extends Activity {
 
     private LinearLayout submenu2LayoutCreate(String name)
     {
+        SQLiteDatabase db = FLITDbHelper.getReadableDatabase();
+
         String[] projection = {
-                FeedEntry._ID,
-                FeedEntry.NAME,
-                FeedEntry.DATE
+                FLITDbHelper.SPENDING_COLUMN_EMAIL,
+                FLITDbHelper.SPENDING_COLUMN_REASON,
+                FLITDbHelper.SPENDING_COLUMN_LOCATION,
+                FLITDbHelper.SPENDING_COLUMN_AMOUNT,
+                FLITDbHelper.SPENDING_COLUMN_TIME
         };
 
-        String sortOrder = FeedEntry.DATE + " DESC";
+        String sortOrder = FLITDbHelper.SPENDING_COLUMN_TIME + " DESC";
 
         Cursor cursor = db.query(
-                FeedEntry.TABLE_NAME,
+                FLITDbHelper.SPENDING_TABLE_NAME,
                 projection,
                 selection,
                 selectionArgs,
@@ -180,5 +186,6 @@ public class SpendingActivity extends Activity {
         linearLayout.addView(floatingActionButton);
 
         return linearLayout;
+        return null;
     }
 }
