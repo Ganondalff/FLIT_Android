@@ -5,15 +5,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="edu.fontbonne.mobileapplab.flit.BudgetActivity">
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/header_edit"
-        android:layout_weight="1" />
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:background="@drawable/background_edit"
         android:fadeScrollbars="false">
         <ViewFlipper
@@ -34,63 +28,72 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/main_home"
-                    android:textSize="32sp"/>
+                    android:textSize="32sp"
+                    android:textColor="#444444"/>
 
                 <TextView
                     android:id="@+id/main_food"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/main_food"
-                    android:textSize="32sp"/>
+                    android:textSize="32sp"
+                    android:textColor="#444444"/>
 
                 <TextView
                     android:id="@+id/main_health"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/main_health"
-                    android:textSize="32sp"/>
+                    android:textSize="32sp"
+                    android:textColor="#444444"/>
 
                 <TextView
                     android:id="@+id/main_transport"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/main_transport"
-                    android:textSize="32sp"/>
+                    android:textSize="32sp"
+                    android:textColor="#444444"/>
 
                 <TextView
                     android:id="@+id/main_debts"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/main_debts"
-                    android:textSize="32sp"/>
+                    android:textSize="32sp"
+                    android:textColor="#444444"/>
 
                 <TextView
                     android:id="@+id/main_entertainment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/main_entertainment"
-                    android:textSize="32sp"/>
+                    android:textSize="32sp"
+                    android:textColor="#444444"/>
 
                 <TextView
                     android:id="@+id/main_clothing"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/main_clothing"
-                    android:textSize="32sp"/>
+                    android:textSize="32sp"
+                    android:textColor="#444444"/>
 
                 <TextView
                     android:id="@+id/main_savings"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/main_savings"
-                    android:textSize="32sp"/>
+                    android:textSize="32sp"
+                    android:textColor="#444444"/>
 
                 <TextView
                     android:id="@+id/main_emergency"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/main_emergency"
-                    android:textSize="32sp"/>
+                    android:textSize="32sp"
+                    android:textColor="#444444"/>
             </LinearLayout>
         </ViewFlipper>
     </ScrollView>

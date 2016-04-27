@@ -29,7 +29,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/login_email"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:textColor="#444444"/>
 
             <EditText
                 android:id="@+id/login_email_box"
@@ -47,7 +48,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/login_password"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:textColor="#444444"/>
 
             <EditText
                 android:id="@+id/login_password_box"

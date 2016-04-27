@@ -32,7 +32,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/registration_name"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp"
+                    android:textColor="#444444"/>
 
                 <EditText
                     android:id="@+id/registration_name_box"
@@ -50,7 +51,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/registration_email"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp"
+                    android:textColor="#444444"/>
 
                 <EditText
                     android:id="@+id/registration_email_box"
@@ -68,7 +70,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/registration_reason"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp"
+                    android:textColor="#444444"/>
 
                 <Spinner
                     android:id="@+id/registration_reason_spinner"
@@ -86,7 +89,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/registration_other"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp"
+                    android:textColor="#444444"/>
 
                 <EditText
                     android:id="@+id/registration_other_box"
@@ -104,7 +108,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/registration_password"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp"
+                    android:textColor="#444444"/>
 
                 <EditText
                     android:id="@+id/registration_password_box"
@@ -122,7 +127,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/registration_confirmpassword"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp"
+                    android:textColor="#444444"/>
 
                 <EditText
                     android:id="@+id/registration_confirm_password_box"

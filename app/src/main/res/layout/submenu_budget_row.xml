@@ -6,6 +6,7 @@
         android:layout_height="wrap_content"
         android:text="Title"
         android:textSize="20sp"
+        android:textColor="#444444"
         android:paddingTop="15dp"
         android:paddingLeft="10dp"
         android:paddingBottom="15dp"/>

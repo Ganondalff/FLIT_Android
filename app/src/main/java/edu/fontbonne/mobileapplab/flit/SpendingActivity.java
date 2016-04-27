@@ -1,10 +1,15 @@
 package edu.fontbonne.mobileapplab.flit;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -14,7 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-public class SpendingActivity extends Activity {
+public class SpendingActivity extends AppCompatActivity {
 
     ViewFlipper spendingFlipper;
 
@@ -142,16 +147,23 @@ public class SpendingActivity extends Activity {
         }
     };
 
-    private LinearLayout submenu2LayoutCreate(String name)
+    private LinearLayout submenu2LayoutCreate(String reason)
     {
-        SQLiteDatabase db = FLITDbHelper.getReadableDatabase();
+        String user = "testname";
+        FLITDbHelper flitDbHelper = new FLITDbHelper(getApplicationContext());
+        SQLiteDatabase db = flitDbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(FLITDbHelper.SPENDING_COLUMN_EMAIL, "testname");
+        values.put(FLITDbHelper.SPENDING_COLUMN_REASON, "Rent/Mortgage");
+        values.put(FLITDbHelper.SPENDING_COLUMN_LOCATION, "testdata");
+        values.put(FLITDbHelper.SPENDING_COLUMN_AMOUNT, 600.50);
+
+        db.insert(FLITDbHelper.SPENDING_TABLE_NAME, null, values);
 
         String[] projection = {
-                FLITDbHelper.SPENDING_COLUMN_EMAIL,
-                FLITDbHelper.SPENDING_COLUMN_REASON,
                 FLITDbHelper.SPENDING_COLUMN_LOCATION,
                 FLITDbHelper.SPENDING_COLUMN_AMOUNT,
-                FLITDbHelper.SPENDING_COLUMN_TIME
         };
 
         String sortOrder = FLITDbHelper.SPENDING_COLUMN_TIME + " DESC";
@@ -159,22 +171,34 @@ public class SpendingActivity extends Activity {
         Cursor cursor = db.query(
                 FLITDbHelper.SPENDING_TABLE_NAME,
                 projection,
-                selection,
-                selectionArgs,
+                FLITDbHelper.SPENDING_COLUMN_EMAIL + " = '" + user + "' and " + FLITDbHelper.SPENDING_COLUMN_REASON + " = '" + reason + "'",
+                null,
                 null,
                 null,
                 sortOrder
         );
 
         LinearLayout linearLayout = new LinearLayout(this);
-        String[] locList = getResources().getStringArray(R.id.str);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+
+        String[] locList = new String[cursor.getCount()];
+        float[] amountList = new float[cursor.getCount()];
+        cursor.moveToFirst();
+        for(int i = 0; i < cursor.getCount(); i++)
+        {
+            locList[i] = cursor.getString(cursor.getColumnIndex(FLITDbHelper.SPENDING_COLUMN_LOCATION));
+            amountList[i] = cursor.getFloat(cursor.getColumnIndex(FLITDbHelper.SPENDING_COLUMN_AMOUNT));
+            cursor.moveToNext();
+        }
+
+        cursor.close();
         TextView textView = new TextView(this);
         ListView listView = new ListView(this);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.submenu2_spending_row, R.id.rowLocation);
+        Submenu2Adapter adapter = new Submenu2Adapter(this, R.layout.submenu2_spending_row, locList, amountList);
         FloatingActionButton floatingActionButton = new FloatingActionButton(this);
 
-        ViewGroup.LayoutParams paramsText = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        textView.setText(name);
+        ViewGroup.LayoutParams paramsText = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        textView.setText(reason);
         textView.setLayoutParams(paramsText);
 
         ListView.LayoutParams paramsList = new ListView.LayoutParams(ListView.LayoutParams.MATCH_PARENT, ListView.LayoutParams.MATCH_PARENT);
@@ -183,9 +207,30 @@ public class SpendingActivity extends Activity {
 
         linearLayout.addView(textView);
         linearLayout.addView(listView);
-        linearLayout.addView(floatingActionButton);
+        //linearLayout.addView(floatingActionButton);
 
         return linearLayout;
-        return null;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_spending, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
