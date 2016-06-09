@@ -1,13 +1,11 @@
 package edu.fontbonne.mobileapplab.flit;
 
-import android.app.Activity;
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +16,19 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class SpendingActivity extends AppCompatActivity {
 
@@ -142,75 +153,10 @@ public class SpendingActivity extends AppCompatActivity {
             spendingFlipper.setOutAnimation(getApplicationContext(), R.anim.slide_out_left);
             spendingFlipper.setInAnimation(getApplicationContext(), R.anim.slide_in_right);
 
-            spendingFlipper.addView(submenu2LayoutCreate(((TextView)view.findViewById(R.id.rowTitle)).getText().toString()), 2);
+            new SpendingRetrieveTask().execute("test@email.com", ((TextView)view.findViewById(R.id.rowTitle)).getText().toString());
             spendingFlipper.setDisplayedChild(2);
         }
     };
-
-    private LinearLayout submenu2LayoutCreate(String reason)
-    {
-        String user = "testname";
-        FLITDbHelper flitDbHelper = new FLITDbHelper(getApplicationContext());
-        SQLiteDatabase db = flitDbHelper.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(FLITDbHelper.SPENDING_COLUMN_EMAIL, "testname");
-        values.put(FLITDbHelper.SPENDING_COLUMN_REASON, "Rent/Mortgage");
-        values.put(FLITDbHelper.SPENDING_COLUMN_LOCATION, "testdata");
-        values.put(FLITDbHelper.SPENDING_COLUMN_AMOUNT, 600.50);
-
-        db.insert(FLITDbHelper.SPENDING_TABLE_NAME, null, values);
-
-        String[] projection = {
-                FLITDbHelper.SPENDING_COLUMN_LOCATION,
-                FLITDbHelper.SPENDING_COLUMN_AMOUNT,
-        };
-
-        String sortOrder = FLITDbHelper.SPENDING_COLUMN_TIME + " DESC";
-
-        Cursor cursor = db.query(
-                FLITDbHelper.SPENDING_TABLE_NAME,
-                projection,
-                FLITDbHelper.SPENDING_COLUMN_EMAIL + " = '" + user + "' and " + FLITDbHelper.SPENDING_COLUMN_REASON + " = '" + reason + "'",
-                null,
-                null,
-                null,
-                sortOrder
-        );
-
-        LinearLayout linearLayout = new LinearLayout(this);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-
-        String[] locList = new String[cursor.getCount()];
-        float[] amountList = new float[cursor.getCount()];
-        cursor.moveToFirst();
-        for(int i = 0; i < cursor.getCount(); i++)
-        {
-            locList[i] = cursor.getString(cursor.getColumnIndex(FLITDbHelper.SPENDING_COLUMN_LOCATION));
-            amountList[i] = cursor.getFloat(cursor.getColumnIndex(FLITDbHelper.SPENDING_COLUMN_AMOUNT));
-            cursor.moveToNext();
-        }
-
-        cursor.close();
-        TextView textView = new TextView(this);
-        ListView listView = new ListView(this);
-        Submenu2Adapter adapter = new Submenu2Adapter(this, R.layout.submenu2_spending_row, locList, amountList);
-        FloatingActionButton floatingActionButton = new FloatingActionButton(this);
-
-        ViewGroup.LayoutParams paramsText = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        textView.setText(reason);
-        textView.setLayoutParams(paramsText);
-
-        ListView.LayoutParams paramsList = new ListView.LayoutParams(ListView.LayoutParams.MATCH_PARENT, ListView.LayoutParams.MATCH_PARENT);
-        listView.setLayoutParams(paramsList);
-        listView.setAdapter(adapter);
-
-        linearLayout.addView(textView);
-        linearLayout.addView(listView);
-        //linearLayout.addView(floatingActionButton);
-
-        return linearLayout;
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -233,4 +179,84 @@ public class SpendingActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private class SpendingRetrieveTask extends AsyncTask<String, Void, Pair<JSONObject, String>>
+    {
+        @Override
+        protected Pair<JSONObject, String> doInBackground(String... params) {
+            HttpURLConnection connection = null;
+            String email = params[0];
+            JSONObject result = null;
+            try {
+                URL url = new URL("http://primetechconsult.com/REST_PHP/get_spending.php");
+                connection = (HttpURLConnection)url.openConnection();
+                connection.setDoOutput(true);
+
+                Uri.Builder builder = new Uri.Builder()
+                        .appendQueryParameter("email", email);
+                String query = builder.build().getEncodedQuery();
+                OutputStream out = connection.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
+                writer.write(query);
+                writer.flush();
+                writer.close();
+                out.close();
+
+                InputStream in = new BufferedInputStream(connection.getInputStream());
+                result = new JSONObject(in.toString());
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+            } finally {
+                if(connection != null)
+                    connection.disconnect();
+            }
+
+            return new Pair<>(result, params[1]);
+        }
+
+        @Override
+        protected void onPostExecute(Pair<JSONObject, String> result)
+        {
+            LinearLayout linearLayout = new LinearLayout(getApplicationContext());
+            linearLayout.setOrientation(LinearLayout.VERTICAL);
+
+            JSONArray spendingArray;
+
+            try
+            {
+                spendingArray = result.first.getJSONArray("spending");
+
+                String[] locList = new String[spendingArray.length()];
+                float[] amountList = new float[spendingArray.length()];
+
+                for(int i = 0; i < spendingArray.length(); i++)
+                {
+                    locList[i] = spendingArray.getJSONObject(i).getString(FLITDbHelper.SPENDING_COLUMN_LOCATION);
+                    amountList[i] = (float)spendingArray.getJSONObject(i).getDouble(FLITDbHelper.SPENDING_COLUMN_AMOUNT);
+                }
+
+                TextView textView = new TextView(getApplicationContext());
+                ListView listView = new ListView(getApplicationContext());
+                Submenu2Adapter adapter = new Submenu2Adapter(getApplicationContext(), R.layout.submenu2_spending_row, locList, amountList);
+                FloatingActionButton floatingActionButton = new FloatingActionButton(getApplicationContext());
+
+                ViewGroup.LayoutParams paramsText = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                textView.setText(result.second);
+                textView.setLayoutParams(paramsText);
+
+                ListView.LayoutParams paramsList = new ListView.LayoutParams(ListView.LayoutParams.MATCH_PARENT, ListView.LayoutParams.MATCH_PARENT);
+                listView.setLayoutParams(paramsList);
+                listView.setAdapter(adapter);
+
+                linearLayout.addView(textView);
+                linearLayout.addView(listView);
+                spendingFlipper.addView(linearLayout, 2);
+            }
+            catch (JSONException e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
