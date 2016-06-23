@@ -21,31 +21,51 @@
         android:background="@drawable/background_edit"
         android:layout_weight="1">
 
-        <Button
-            android:id="@+id/main_login_button"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/welcome_text"
+            android:gravity="center"
             android:layout_height="wrap_content"
-            android:text="Login"/>
+            android:layout_width="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="22dp"
+            android:text="Welcome to the Financial Literacy App!\nPlease login or register."/>
 
-        <Button
-            android:id="@+id/main_register_button"
+        <LinearLayout
+            android:id="@+id/main_button_row"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/main_login_button"
-            android:text="Register"/>
+            android:layout_below="@+id/welcome_text"
+            android:layout_marginTop="22dp"
+            android:layout_centerHorizontal="true">
+            <Button
+                android:id="@+id/main_login_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/welcome_text"
+                android:text="Login"/>
+
+            <Button
+                android:id="@+id/main_register_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/welcome_text"
+                android:layout_toRightOf="@+id/main_login_button"
+                android:text="Register"/>
+        </LinearLayout>
 
         <Button
             android:id="@+id/main_budget_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/main_register_button"
+            android:layout_below="@+id/main_button_row"
             android:text="Budget"/>
 
         <Button
             android:id="@+id/main_spending_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/main_login_button"
+            android:layout_below="@+id/main_button_row"
+            android:layout_toRightOf="@+id/main_budget_button"
             android:text="Spending"/>
 
     </RelativeLayout>

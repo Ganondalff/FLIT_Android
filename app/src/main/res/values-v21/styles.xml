@@ -3,10 +3,6 @@
     <style name="AppTheme21" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:colorPrimary">@color/primary</item>
         <item name="android:colorPrimaryDark">@color/primary_dark</item>
-
+        <item name="android:colorAccent">@color/primary</item>
     </style>
-
-    <style name="AppTheme21.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme21.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

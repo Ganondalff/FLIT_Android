@@ -33,6 +33,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/registration_name"
                     android:textSize="20sp"
+                    android:maxLength="30"
                     android:textColor="#444444"/>
 
                 <EditText
@@ -141,6 +142,7 @@
             <TableRow
                 android:gravity="center">
                 <Button
+                    android:id="@+id/registration_submit"
                     android:text="@string/registration_submit"/>
             </TableRow>
 

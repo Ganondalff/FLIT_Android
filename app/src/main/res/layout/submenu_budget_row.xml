@@ -15,6 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
+        android:textColor="#444444"
         android:hint="Amount"
         android:paddingLeft="10dp"
         android:paddingTop="15dp"
