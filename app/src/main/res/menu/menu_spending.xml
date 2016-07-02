@@ -6,11 +6,13 @@
         android:title="Add"
         android:orderInCategory="100"
         android:visible="false"
+        android:icon="@drawable/ic_add_white_24dp"
         app:showAsAction="always" />
     <item
         android:id="@+id/spending_action_save"
         android:title="Save"
         android:orderInCategory="101"
         android:visible="false"
+        android:icon="@drawable/ic_save_white_24dp"
         app:showAsAction="always" />
 </menu>

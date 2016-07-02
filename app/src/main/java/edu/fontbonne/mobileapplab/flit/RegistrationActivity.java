@@ -82,6 +82,8 @@ public class RegistrationActivity extends Activity{
             @Override
             public void onClick(View v) {
 
+                v.setEnabled(false);
+
                 String[] userdata = new String[6];
 
                 String nameString = nameEditText.getText().toString();
@@ -123,6 +125,7 @@ public class RegistrationActivity extends Activity{
                     userdata[4] = passwordString;
                 else {
                     Toast.makeText(getApplicationContext(), "Passwords do not match.", Toast.LENGTH_SHORT).show();
+                    v.setEnabled(true);
                     return;
                 }
 
@@ -187,6 +190,7 @@ public class RegistrationActivity extends Activity{
             }
             else {
                 Toast.makeText(getApplicationContext(), "Registration failed. Try again.", Toast.LENGTH_SHORT).show();
+                findViewById(R.id.registration_submit).setEnabled(true);
             }
         }
     }

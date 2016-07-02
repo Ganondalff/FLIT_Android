@@ -38,6 +38,7 @@ public class LoginActivity extends Activity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.setEnabled(false);
                 emailString = emailEditText.getText().toString();
                 String passwordString = passwordEditText.getText().toString();
 
@@ -102,6 +103,7 @@ public class LoginActivity extends Activity {
             }
             else {
                 Toast.makeText(getApplicationContext(), "Login failed. Check info and try again.", Toast.LENGTH_SHORT).show();
+                findViewById(R.id.login_btn_submit).setEnabled(true);
             }
         }
     }

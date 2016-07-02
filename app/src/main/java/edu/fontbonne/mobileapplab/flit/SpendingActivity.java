@@ -6,18 +6,22 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import org.json.JSONArray;
@@ -38,12 +42,13 @@ public class SpendingActivity extends AppCompatActivity {
 
     ViewFlipper spendingFlipper;
     MenuItem spendingActionAdd;
-    //MenuItem spendingActionSave;
+    TableLayout addFrame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spending);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         spendingFlipper = (ViewFlipper) findViewById(R.id.spending_flipper);
 
@@ -66,6 +71,8 @@ public class SpendingActivity extends AppCompatActivity {
         mainClothingButton.setOnClickListener(mainButtonListener);
         mainSavingsButton.setOnClickListener(mainButtonListener);
         mainEmergencyButton.setOnClickListener(mainButtonListener);
+
+        addFrame = (TableLayout) findViewById(R.id.overlay_container);
     }
 
     private View.OnClickListener mainButtonListener = new View.OnClickListener() {
@@ -141,11 +148,36 @@ public class SpendingActivity extends AppCompatActivity {
                 getSupportActionBar().setTitle(R.string.title_activity_spending);
                 break;
             case 2:
-                spendingFlipper.setOutAnimation(this, R.anim.slide_out_right);
-                spendingFlipper.setInAnimation(this, R.anim.slide_in_left);
-                spendingFlipper.setDisplayedChild(1);
-                spendingActionAdd.setVisible(false);
-                //spendingActionSave.setVisible(false);
+                if (addFrame.getVisibility() == View.GONE) {
+                    spendingFlipper.setOutAnimation(this, R.anim.slide_out_right);
+                    spendingFlipper.setInAnimation(this, R.anim.slide_in_left);
+                    spendingFlipper.setDisplayedChild(1);
+                    spendingActionAdd.setVisible(false);
+                }
+                else
+                {
+                    ((EditText) findViewById(R.id.spending_add_location_box)).setText("");
+                    ((EditText) findViewById(R.id.spending_add_amount_box)).setText("");
+
+                    Animation slide_down = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
+                    slide_down.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            addFrame.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+                    addFrame.startAnimation(slide_down);
+                }
                 break;
         }
     }
@@ -179,8 +211,7 @@ public class SpendingActivity extends AppCompatActivity {
             spendingFlipper.setDisplayedChild(2);
 
             SharedPreferences user = getSharedPreferences("LoginEmail", 0);
-
-            new SpendingRetrieveTask().execute(user.getString("email", null), ((TextView)view.findViewById(R.id.rowTitle)).getText().toString());
+            new SpendingRetrieveTask().execute(user.getString("email", null), ((TextView)((RelativeLayout)view).getChildAt(0)).getText().toString());
 
         }
     };
@@ -191,7 +222,6 @@ public class SpendingActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_spending, menu);
 
         spendingActionAdd = menu.findItem(R.id.spending_action_add);
-        //spendingActionSave = menu.findItem(R.id.spending_action_save);
 
         return true;
     }
@@ -205,9 +235,25 @@ public class SpendingActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.spending_action_add) {
-            return true;
-        }
-        if (id == R.id.spending_action_save) {
+            Animation slide_up = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
+            slide_up.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    addFrame.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            addFrame.startAnimation(slide_up);
+            addFrame.setVisibility(View.VISIBLE);
             return true;
         }
 
@@ -226,7 +272,8 @@ public class SpendingActivity extends AppCompatActivity {
                 connection.setDoOutput(true);
 
                 Uri.Builder builder = new Uri.Builder()
-                        .appendQueryParameter("email", params[0]);
+                        .appendQueryParameter("email", params[0])
+                        .appendQueryParameter("subcategory", params[1]);
                 String query = builder.build().getEncodedQuery();
                 OutputStream out = connection.getOutputStream();
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
@@ -286,30 +333,32 @@ public class SpendingActivity extends AppCompatActivity {
                 linearLayout.addView(listView);
 
                 spendingFlipper.addView(linearLayout, 2);
-                Log.i("Info", "View added.");
-                spendingFlipper.getInAnimation().setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
 
-                    }
+                if (spendingFlipper.getInAnimation() != null) {
+                    spendingFlipper.getInAnimation().setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
 
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        spendingFlipper.getInAnimation().setAnimationListener(null);
-                        spendingFlipper.setOutAnimation(null);
-                        spendingFlipper.setInAnimation(null);
-                        spendingFlipper.setDisplayedChild(2);
-                        Log.i("Info", "Child set.");
-                    }
+                        }
 
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            spendingFlipper.getInAnimation().setAnimationListener(null);
+                            spendingFlipper.setOutAnimation(null);
+                            spendingFlipper.setInAnimation(null);
+                            spendingFlipper.setDisplayedChild(2);
+                        }
 
-                    }
-                });
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+                }
+                else
+                    spendingFlipper.setDisplayedChild(2);
 
                 spendingActionAdd.setVisible(true);
-                //spendingActionSave.setVisible(true);
             }
             catch (JSONException e)
             {
@@ -318,4 +367,102 @@ public class SpendingActivity extends AppCompatActivity {
         }
     }
 
+    public void onSaveButtonPressed(View view)
+    {
+        view.setEnabled(false);
+        String addLocationText = ((EditText) findViewById(R.id.spending_add_location_box)).getText().toString();
+        String addAmountText = ((EditText) findViewById(R.id.spending_add_amount_box)).getText().toString();
+
+        SharedPreferences user = getSharedPreferences("LoginEmail", 0);
+        new SpendingAddTask().execute(user.getString("email", null), getSupportActionBar().getTitle().toString(), addLocationText, addAmountText);
+    }
+
+    private class SpendingAddTask extends AsyncTask<String, Void, Boolean>
+    {
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            HttpURLConnection connection = null;
+            String result = null;
+            try {
+                URL url = new URL("http://primetechconsult.com/REST_PHP/add_spending.php");
+                connection = (HttpURLConnection)url.openConnection();
+                connection.setDoOutput(true);
+
+                Uri.Builder builder = new Uri.Builder()
+                        .appendQueryParameter("email", params[0])
+                        .appendQueryParameter("subcategory", params[1])
+                        .appendQueryParameter("location", params[2])
+                        .appendQueryParameter("amount", params[3]);
+
+                String query = builder.build().getEncodedQuery();
+                OutputStream out = connection.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
+                writer.write(query);
+                writer.flush();
+                writer.close();
+                out.close();
+
+                InputStream in = connection.getInputStream();
+                BufferedReader r = new BufferedReader(new InputStreamReader(in));
+                StringBuilder total = new StringBuilder();
+                String line;
+                while ((line = r.readLine()) != null) {
+                    total.append(line);
+                }
+                result = total.toString();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            } finally {
+                if(connection != null)
+                    connection.disconnect();
+            }
+
+            return result.equals("success");
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result)
+        {
+            if(result)
+                Toast.makeText(getApplicationContext(), "Save complete!", Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(getApplicationContext(), "Save failed.", Toast.LENGTH_SHORT).show();
+
+            ((EditText) findViewById(R.id.spending_add_location_box)).setText("");
+            ((EditText) findViewById(R.id.spending_add_amount_box)).setText("");
+
+            findViewById(R.id.spending_add_save).setEnabled(true);
+
+            Animation slide_down = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
+            slide_down.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    addFrame.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            addFrame.startAnimation(slide_down);
+
+            TextView loadText = new TextView(getApplicationContext());
+            loadText.setText("Loading...");
+            loadText.setTextColor(ContextCompat.getColor(getApplicationContext(), android.R.color.black));
+            loadText.setGravity(Gravity.CENTER_HORIZONTAL);
+            spendingFlipper.addView(loadText, 2);
+            spendingFlipper.setDisplayedChild(2);
+
+            SharedPreferences user = getSharedPreferences("LoginEmail", 0);
+            new SpendingRetrieveTask().execute(user.getString("email", null), getSupportActionBar().getTitle().toString());
+        }
+    }
 }

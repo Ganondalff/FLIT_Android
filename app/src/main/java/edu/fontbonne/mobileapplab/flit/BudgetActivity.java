@@ -45,6 +45,7 @@ public class BudgetActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_budget);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         budgetFlipper = (ViewFlipper) findViewById(R.id.budget_flipper);
 
@@ -140,9 +141,9 @@ public class BudgetActivity extends AppCompatActivity {
         loadText.setTextColor(ContextCompat.getColor(getApplicationContext(), android.R.color.black));
         loadText.setGravity(Gravity.CENTER_HORIZONTAL);
 
-        //SharedPreferences user = getSharedPreferences("LoginEmail", 0);
+        SharedPreferences user = getSharedPreferences("LoginEmail", 0);
 
-        new BudgetRetrieveTask().execute("test@email.com", getResources().getString(strCategory));
+        new BudgetRetrieveTask().execute(user.getString("email", null), getResources().getString(strCategory));
 
         return loadText;
     }
@@ -165,10 +166,9 @@ public class BudgetActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.budget_action_save) {
-            //SharedPreferences user = getSharedPreferences("LoginEmail", 0);
-            String category = getSupportActionBar().getTitle().toString();
+            SharedPreferences user = getSharedPreferences("LoginEmail", 0);
             List<String> saveData = new ArrayList<>();
-            saveData.add("test@email.com");
+            saveData.add(user.getString("email", null));
             saveData.add(getSupportActionBar().getTitle().toString());
 
             for(int i = 0; i < budgetRows.getChildCount(); i++)
