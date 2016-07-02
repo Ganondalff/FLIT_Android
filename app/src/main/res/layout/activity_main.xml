@@ -53,20 +53,5 @@
                 android:text="Register"/>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/main_budget_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/main_button_row"
-            android:text="Budget"/>
-
-        <Button
-            android:id="@+id/main_spending_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/main_button_row"
-            android:layout_toRightOf="@+id/main_budget_button"
-            android:text="Spending"/>
-
     </RelativeLayout>
 </LinearLayout>

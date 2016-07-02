@@ -15,8 +15,6 @@ public class MainActivity extends Activity {
 
         Button loginButton = (Button) findViewById(R.id.main_login_button);
         Button registerButton = (Button) findViewById(R.id.main_register_button);
-        Button budgetButton = (Button) findViewById(R.id.main_budget_button);
-        Button spendingButton = (Button) findViewById(R.id.main_spending_button);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -29,20 +27,6 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 Intent registerIntent = new Intent(getApplicationContext(), RegistrationActivity.class);
                 startActivity(registerIntent);
-            }
-        });
-
-        budgetButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent budgetIntent = new Intent(getApplicationContext(), BudgetActivity.class);
-                startActivity(budgetIntent);
-            }
-        });
-
-        spendingButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent spendingIntent = new Intent(getApplicationContext(), SpendingActivity.class);
-                startActivity(spendingIntent);
             }
         });
     }
