@@ -87,19 +87,11 @@
     </string-array>
     <string-array name="clothing_array">
         <item>Clothing</item>
-        <item>Other</item>
     </string-array>
     <string-array name="savings_array">
         <item>Savings</item>
-        <item>Other</item>
     </string-array>
     <string-array name="emergency_array">
         <item>Emergency Funds</item>
-        <item>Other</item>
     </string-array>
-    <string name="title_activity_scrolling">ScrollingActivity</string>
-    <string name="title_activity_main2">Main2Activity</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
